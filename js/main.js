@@ -40,7 +40,8 @@ const getRandomAvatar = () => {
   referenceNumber = getRandomArrayElement(NUMBER);
   if (referenceNumber < 10) {
     return (`img/avatars/user0${referenceNumber}.png`);
-  } return (`img/avatars/user${referenceNumber}.png`);
+  }
+  return (`img/avatars/user${referenceNumber}.png`);
 };
 
 const getRandomLocationPoint = (min, max, decimalPlaces) => {
@@ -99,6 +100,7 @@ const createAdvertisement = () => {
 
 // Собираем массив
 
-const objectGenerator = new Array(10).fill(null).map(createAdvertisement);
+const NUMBER_OF_OBJ = 10;
+const objectGenerator = new Array(NUMBER_OF_OBJ).fill(null).map(createAdvertisement);
 
 objectGenerator;
