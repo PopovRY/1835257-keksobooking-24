@@ -1,53 +1,50 @@
-import {createAdvertisement} from './util.js';
-import {
-  FEATURES,
-} from './data.js';
+import {adverts} from './main';
+import {}
 
 
-
-const featureContainer = document.querySelector('.popup__features');
-const featureListFragment = document.createDocumentFragment();
-
-FEATURES.forEach((feature) => {
-  const featureListItem = featureContainer.querySelector('.popup__feature--'+ feature);
-
-  if (featureListItem) {
-    featureListFragment.append(featureListItem);
-  }
-});
-
-featureContainer.innerHTML = '';
-featureContainer.append(featureListFragment);
 
 // вспомогательные
 
 
-const translatePopupType = () => {}
+const translatePopupType
 
 
-const makeCardFeatures = () => {};
+const makeCardFeatures
 
 
-const makeCardPhotos = () => {};
 
-const checkEmptyBlock = () => {
 
+
+//
+const makeCardPhotos = (document, photos) => {
+  for (let i = 0; i<photos.length; i++) {
+    document.querySelector('.popup__photos').src = photos[i];
+    return
+  }
 };
+
+// прячем пустые блоки
+const checkEmptyBlock = (document) => {
+const popup = document.querySelector('.popup');
+  for (let i=0; i<popup.children.length; i++) {
+    if (popup.children[i].textContent ==='') {
+      popup.children[i].classList.add('hidden');
+    }
+  }
+};
+
 
 // добавить данные в шаблон
 
 const cardTemplate = document.querySelector('#card')
 
-const adverts = createAdvertisement();
-
 const popupFragment = document.createDocumentFragment();
 
 const makeCardList = () => {
-adverts.forEach(({author, offer}) => {
+  adverts.forEach({author, offer}) => {
   const cardElement = cardTemplate.cloneNode(true);
   cardElement.querySelector('.popup__title').textContent = offer.title;
   cardElement.querySelector('.popup__text--address').textContent = offer.address;
-  //cardElement.querySelector('.popup__text--address').textContent = '';
   cardElement.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
   cardElement.querySelector('.popup__type').textContent = translatePopupType(offer.type);
   cardElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
@@ -62,14 +59,12 @@ adverts.forEach(({author, offer}) => {
 return popupFragment;
 };
 
-
-
-// отрисовать карточку
-
 const mapCanvas = document.querySelector('#map-canvas');
 const cardList = makeCardList();
 const firstCardItem = cardList.querySelectorAll('.popup');
-mapCanvas.appendChild(firstPopupItem[0]);
+mapCanvas.appendChild(firstCardItem[0]);
+
+
 
 
 
