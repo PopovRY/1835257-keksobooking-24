@@ -8,26 +8,21 @@ import {adverts} from './main';
 
 const translatePopupType = (data) => {
 
-const typeItem = {
-  'palace': 'Дворец',
-  'flat': 'Квартира',
-  'house': 'Дом',
-  'bungalow': 'Бунгало',
-  'hotel': 'Отель'
-};
+  const typeItem = {
+    'Дворец':'palace',
+    'Квартира':'flat',
+    'Дом':'house',
+    'Бунгало':'bungalow',
+    'Отель':'hotel'
+  };
+  for (let key in typeItem) {
+    if (typeItem.key == data) {
+      return key;
+    }
 
-const typesContainer = document.querySelector('.popup__features');
-typesContainer.innerHTML = '';
-
-data.forEach(type) => {
-  const typeListItem = document.querySelector('.popup__type');
-
-  typeListItem.classList.add('.popup__type');
-  typeListItem.textContent = typeItem[type];
-  typesContainer.append(typeListItem);
-
-});
+  }
 }
+
 
 // вывести все доступные удобства в объявлении
 const makeCardFeatures = (document, data) => {
@@ -69,7 +64,7 @@ const cardTemplate = document.querySelector('#card')
 const popupFragment = document.createDocumentFragment();
 
 const makeCardList = () => {
-  adverts.forEach({author, offer}) => {
+  adverts.forEach(({author, offer}) => {
   const cardElement = cardTemplate.cloneNode(true);
   cardElement.querySelector('.popup__title').textContent = offer.title;
   cardElement.querySelector('.popup__text--address').textContent = offer.address;
