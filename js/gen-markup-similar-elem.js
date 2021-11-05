@@ -1,21 +1,49 @@
 import {adverts} from './main';
-import {}
 
 
 
 // вспомогательные
 
+//тип жилья сопоставить с подписями
 
-const translatePopupType
+const translatePopupType = (data) => {
+
+const typeItem = {
+  'palace': 'Дворец',
+  'flat': 'Квартира',
+  'house': 'Дом',
+  'bungalow': 'Бунгало',
+  'hotel': 'Отель'
+};
+
+const typesContainer = document.querySelector('.popup__features');
+typesContainer.innerHTML = '';
+
+data.forEach(type) => {
+  const typeListItem = document.querySelector('.popup__type');
+
+  typeListItem.classList.add('.popup__type');
+  typeListItem.textContent = typeItem[type];
+  typesContainer.append(typeListItem);
+
+});
+}
+
+// вывести все доступные удобства в объявлении
+const makeCardFeatures = (document, data) => {
+  const featureContainer = document.querySelector('.popup__features');
+  const featureList = featureContainer.querySelectorAll('.popup__feature');
+  const modifiers = data.map((dataItem) => '.popup__feature'+ dataItem);
+  featureList.forEach((featureListItem) => {
+    const modifier = featureListItem.classList[1];
+    if (!modifiers.includes(modifier)) {
+      featureListItem.remove();
+    }
+  });
+}
 
 
-const makeCardFeatures
-
-
-
-
-
-//
+// вывести и сопоставить фото
 const makeCardPhotos = (document, photos) => {
   for (let i = 0; i<photos.length; i++) {
     document.querySelector('.popup__photos').src = photos[i];
