@@ -88,3 +88,5 @@ const mapCanvas = document.querySelector('#map-canvas');
 const cardList = makeCardList();
 const firstCardItem = cardList.querySelectorAll('.popup');
 mapCanvas.appendChild(firstCardItem[0]);
+
+
