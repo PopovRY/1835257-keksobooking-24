@@ -1,3 +1,4 @@
+//Синхронизация полей (Количество комнат и Количество мест)
 const roomNumberSelect = document.querySelector('#room_number');
 const capacitySelect = document.querySelector('#capacity');
 
@@ -21,6 +22,7 @@ roomNumberSelect.addEventListener('change', () => {
   }
 });
 
+//Синхронизация полей (Время заезда и Время выезда)
 
 const timeinSelector = document.querySelector('#timein');
 timeinSelector.addEventListener('change',() => {
@@ -30,6 +32,26 @@ timeinSelector.addEventListener('change',() => {
   } else {
     timeinSelector.setCustomValidity('');
   }
+});
+
+
+//Взаимодействие полей Тип жилья и Цена за ночь. Валидация поля Цена за ночь.
+
+const userForm = document.querySelector('.ad-form');
+const roomsAndCapacityMap = {
+  'bungalo': 0,
+  'flat': 1000,
+  'house': 5000,
+  'palace': 10000,
+};
+
+const apartamentInputElement = userForm.querySelector('select[name="type"]');
+const priceInputElement = userForm.querySelector('input[name="price"]');
+
+apartamentInputElement.addEventListener('change', () => {
+  const minPrice = roomsAndCapacityMap[apartamentInputElement.value];
+  priceInputElement.min = minPrice;
+  priceInputElement.placeholder = minPrice;
 });
 
 
