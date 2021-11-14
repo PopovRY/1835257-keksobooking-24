@@ -1,5 +1,5 @@
 //import {adForm} from './form-valid';
-import {makeCardList} from './gen-markup-similar-elem';
+//import {makeCardList} from './gen-markup-similar-elem';
 
 const INITIAL_COORDS = {
   lat: 35.652832,
@@ -50,6 +50,12 @@ const mainPinMarker = L.marker(
 
 mainPinMarker.addTo(map);
 
+const regularPinIcon = L.icon({
+  iconUrl: './img/pin.svg',
+  iconSize: [40, 40],
+  iconAnchor: [20, 40],
+});
+
 
 //mainPinMarker.on('drag', (evt) => {
 //const coords = evt.target.getLatLng();
@@ -57,13 +63,9 @@ mainPinMarker.addTo(map);
 //});
 
 
-const renderPoints = (array) => {
-  const regularPinIcon = L.icon({
-    iconUrl: './img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-  });
-  array.forEach(({author,offer,location}) => {
+const renderPoints = (points) => {
+  points.forEach((point) => {
+    const {location} = point;
     const regularPinMarker = L.marker(
       {
         lat: location.lat,
@@ -74,9 +76,9 @@ const renderPoints = (array) => {
         icon: regularPinIcon,
       },
     );
-    const popup = makeCardList(author, offer);
-    regularPinMarker.addTo(map);
-    regularPinMarker.bindPopup(popup);
+    regularPinMarker
+      .addTo(map)
+      //.bindPopup(makeCardList(point))
   });
 };
 
