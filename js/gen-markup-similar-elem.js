@@ -1,4 +1,4 @@
-import {adverts} from './main';
+
 //тип жилья сопоставить с подписями
 
 
@@ -39,15 +39,23 @@ const makeCardFeatures = (document, data) => {
 
 
 // вывести и сопоставить фото
-const makeCardPhotos = (document, photos) => {
-  for (let i = 0; i<photos.length; i++) {
-    document.querySelector('.popup__photos').src = photos[i];
-    return;
-  }
+const makeCardPhotos = (container, sources) => {
+  const cardPhoto = container.querySelector('.popup__photo');
+  container.innerHTML = '';
+
+  const fragmentPhoto = document.createDocumentFragment();
+
+  sources.forEach((source) => {
+    const newPhoto = cardPhoto.cloneNode(true);
+    newPhoto.src = source;
+    fragmentPhoto.appendChild(newPhoto);
+  });
+
+  return fragmentPhoto;
 };
 
 // прячем пустые блоки
-const checkEmptyBlock = (document) => {
+/*const checkEmptyBlock = (document) => {
   const popup = document.querySelector('.popup');
   for (let i=0; i<popup.children.length; i++) {
     if (popup.children[i].textContent ==='') {
@@ -55,39 +63,81 @@ const checkEmptyBlock = (document) => {
     }
   }
 };
-
+*/
+// склоняем
+const makeDeclension = (number, Arr) => {
+  const cases = [2, 0, 1, 1, 1, 2];
+  return Arr[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
+};
 
 // добавить данные в шаблон
 
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
-const popupFragment = document.createDocumentFragment();
+const makeCardList = ({author, offer}) => {
+  const cardElement = cardTemplate.cloneNode(true);
+  const title = cardElement.querySelector('.popup__title');
+  if (offer.title) {
+    title.textContent = offer.title;
+  } else {
+    title.remove();
+  }
+  const address = cardElement.querySelector('.popup__text--address');
+  if (offer.address) {
+    address.textContent = offer.address;
+  } else {
+    address.remove();
+  }
+  const price = cardElement.querySelector('.popup__text--price');
+  if (offer.price) {
+    price.textContent = `${offer.price} ₽/ночь`;
+  } else {
+    price.remove();
+  }
+  const type = cardElement.querySelector('.popup__type');
+  if (offer.type) {
+    type.textContent = translateCardType[offer.type];
+  } else {
+    type.remove();
+  }
+  const capacity = cardElement.querySelector('.popup__text--capacity');
+  if (offer.rooms && offer.guests) {
+    capacity.textContent = `${offer.rooms} ${makeDeclension(`${offer.rooms}`, ['комната', 'комнаты', 'комнат'])} для ${offer.guests} ${makeDeclension(`${offer.guests}`, ['гостя', 'гостей', 'гостей'])}`;
+  } else {
+    capacity.remove();
+  }
+  const time = cardElement.querySelector('.popup__text--time');
+  if (offer.checkin && offer.checkout) {
+    time.textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
+  } else {
+    time.remove();
+  }
+  const description = cardElement.querySelector('.popup__description');
+  if (offer.description) {
+    description.textContent = offer.description;
+  } else {
+    description.remove();
+  }
+  const avatar = cardElement.querySelector('.popup__avatar');
+  if (author.avatar) {
+    avatar.src = author.avatar;
+  } else {
+    avatar.remove();
+  }
+  const photoContainer = cardElement.querySelector('.popup__photos');
+  if (offer.photos) {
+    photoContainer.appendChild(makeCardPhotos(photoContainer, offer.photos));
+  } else {
+    photoContainer.remove();
+  }
+  const features = cardElement.querySelector('.popup__features');
+  if (offer.features) {
+    makeCardFeatures(offer.features, features);
+  } else {
+    features.remove();
+  }
 
-const makeCardList = () => {
-  adverts.forEach(({author, offer}) => {
-    const cardElement = cardTemplate.cloneNode(true);
-
-    cardElement.querySelector('.popup__title').textContent = offer.title;
-    cardElement.querySelector('.popup__text--address').textContent = offer.address;
-    cardElement.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
-    cardElement.querySelector('.popup__type').textContent = translateCardType(offer.type);
-    cardElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
-    cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
-    makeCardFeatures(cardElement, offer.features);
-    cardElement.querySelector('.popup__description').textContent = offer.description ;
-    makeCardPhotos(cardElement, offer.photos);
-    cardElement.querySelector('.popup__avatar').src = author.avatar;
-    checkEmptyBlock(cardElement);
-    popupFragment.appendChild(cardElement);
-  });
-  return popupFragment;
+  return cardElement;
 };
-
-//Отрисовать 1 элемент
-/*const mapCanvas = document.querySelector('#map-canvas');
-const cardList = makeCardList();
-const firstCardItem = cardList.querySelectorAll('.popup');
-mapCanvas.appendChild(firstCardItem[0]);
-*/
 
 export {makeCardList};
