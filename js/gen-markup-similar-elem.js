@@ -1,4 +1,4 @@
-
+import {createAdvertisement} from './util';
 //тип жилья сопоставить с подписями
 
 
@@ -72,7 +72,7 @@ const makeDeclension = (number, Arr) => {
 
 // добавить данные в шаблон
 
-const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
+const cardTemplate = document.querySelector('#card').content;
 
 const makeCardList = ({author, offer}) => {
   const cardElement = cardTemplate.cloneNode(true);
@@ -96,7 +96,7 @@ const makeCardList = ({author, offer}) => {
   }
   const type = cardElement.querySelector('.popup__type');
   if (offer.type) {
-    type.textContent = translateCardType[offer.type];
+    type.textContent = translateCardType(offer.type);
   } else {
     type.remove();
   }
@@ -140,4 +140,4 @@ const makeCardList = ({author, offer}) => {
   return cardElement;
 };
 
-export {makeCardList};
+

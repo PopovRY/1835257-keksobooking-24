@@ -50,12 +50,6 @@ const mainPinMarker = L.marker(
 
 mainPinMarker.addTo(map);
 
-const regularPinIcon = L.icon({
-  iconUrl: './img/pin.svg',
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
-});
-
 
 //mainPinMarker.on('drag', (evt) => {
 //const coords = evt.target.getLatLng();
@@ -66,6 +60,13 @@ const regularPinIcon = L.icon({
 const renderPoints = (points) => {
   points.forEach((point) => {
     const {location} = point;
+
+    const regularPinIcon = L.icon({
+      iconUrl: './img/pin.svg',
+      iconSize: [40, 40],
+      iconAnchor: [20, 40],
+    });
+
     const regularPinMarker = L.marker(
       {
         lat: location.lat,
@@ -76,12 +77,11 @@ const renderPoints = (points) => {
         icon: regularPinIcon,
       },
     );
+    const popup = makeCardList();
     regularPinMarker
       .addTo(map)
-      //.bindPopup(makeCardList(point))
+      //.bindPopup(popup);
   });
 };
 
 renderPoints();
-
-

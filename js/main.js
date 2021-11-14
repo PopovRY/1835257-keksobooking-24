@@ -1,6 +1,7 @@
 import {createAdvertisement} from './util.js';
 import './map.js';
 
+
 // Собираем массив
 
 const NUMBER_OF_OBJ = 10;
