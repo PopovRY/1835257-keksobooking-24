@@ -2,7 +2,7 @@ import {adverts} from './main';
 //тип жилья сопоставить с подписями
 
 
-const translatePopupType = (data) => {
+const translateCardType = (data) => {
 
   const typeItem = {
     'Дворец': 'palace',
@@ -59,17 +59,18 @@ const checkEmptyBlock = (document) => {
 
 // добавить данные в шаблон
 
-const cardTemplate = document.querySelector('#card');
+const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
 const popupFragment = document.createDocumentFragment();
 
 const makeCardList = () => {
   adverts.forEach(({author, offer}) => {
     const cardElement = cardTemplate.cloneNode(true);
+
     cardElement.querySelector('.popup__title').textContent = offer.title;
     cardElement.querySelector('.popup__text--address').textContent = offer.address;
     cardElement.querySelector('.popup__text--price').textContent = `${offer.price} ₽/ночь`;
-    cardElement.querySelector('.popup__type').textContent = translatePopupType(offer.type);
+    cardElement.querySelector('.popup__type').textContent = translateCardType(offer.type);
     cardElement.querySelector('.popup__text--capacity').textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
     cardElement.querySelector('.popup__text--time').textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
     makeCardFeatures(cardElement, offer.features);

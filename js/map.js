@@ -1,6 +1,7 @@
 import {getActiveState, adForm} from './form-valid';
 import {makeCardList} from './util';
 
+
 const INITIAL_COORDS = {
   lat: 35.4200,
   lng: 139.2530,
@@ -71,6 +72,9 @@ const renderPoints = (ads) => {
     );
     regularPinMarker
       .addTo(map)
-      .bindPopup(makeCardList(ad));
+      .bindPopup(makeCardList(ad),
+      );
   });
 };
+
+renderPoints();
