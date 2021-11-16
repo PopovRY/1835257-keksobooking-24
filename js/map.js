@@ -77,10 +77,10 @@ const renderPoints = (points) => {
         icon: regularPinIcon,
       },
     );
-    const popup = makeCardList();
     regularPinMarker
-      .addTo(map)
-      //.bindPopup(popup);
+      .addTo(map);
+    //Ниже функция, если раскомментировать, то все ломается.
+    //.bindPopup(makeCardList());
   });
 };
 

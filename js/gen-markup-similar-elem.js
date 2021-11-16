@@ -1,4 +1,4 @@
-import {createAdvertisement} from './util';
+
 //тип жилья сопоставить с подписями
 
 
@@ -74,7 +74,7 @@ const makeDeclension = (number, Arr) => {
 
 const cardTemplate = document.querySelector('#card').content;
 
-const makeCardList = ({author, offer}) => {
+const makeCardList = (author, offer) => {
   const cardElement = cardTemplate.cloneNode(true);
   const title = cardElement.querySelector('.popup__title');
   if (offer.title) {
@@ -141,3 +141,4 @@ const makeCardList = ({author, offer}) => {
 };
 
 
+export {makeCardList};
