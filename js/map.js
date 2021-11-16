@@ -1,5 +1,5 @@
-//import {adForm} from './form-valid';
-import {makeCardList} from './gen-markup-similar-elem';
+import {getActiveState, adForm} from './form-valid.js';
+import {makeCardList} from './gen-markup-similar-elem.js';
 
 const INITIAL_COORDS = {
   lat: 35.652832,
@@ -13,8 +13,8 @@ const MAIN_MARKER_COORDS = {
 
 const map = L.map('map-canvas')
   .on('load', () => {
-    //    getActiveState();
-    //    adForm.address.value = `${INITIAL_COORDS.lat}, ${INITIAL_COORDS.lng}`;
+    getActiveState();
+    adForm.address.value = `${INITIAL_COORDS.lat}, ${INITIAL_COORDS.lng}`;
   })
   .setView({
     lat: INITIAL_COORDS.lat,
@@ -81,5 +81,3 @@ const renderPoints = (points) => {
     regularPinMarker.bindPopup(popup);
   });
 };
-
-renderPoints();
