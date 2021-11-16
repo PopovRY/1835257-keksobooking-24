@@ -1,5 +1,5 @@
 //import {adForm} from './form-valid';
-//import {makeCardList} from './gen-markup-similar-elem';
+import {makeCardList} from './gen-markup-similar-elem';
 
 const INITIAL_COORDS = {
   lat: 35.652832,
@@ -58,15 +58,12 @@ mainPinMarker.addTo(map);
 
 
 const renderPoints = (points) => {
-  points.forEach((point) => {
-    const {location} = point;
-
-    const regularPinIcon = L.icon({
-      iconUrl: './img/pin.svg',
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
-    });
-
+  const regularPinIcon = L.icon({
+    iconUrl: './img/pin.svg',
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
+  });
+  points.forEach(({author, offer, location}) => {
     const regularPinMarker = L.marker(
       {
         lat: location.lat,
@@ -77,10 +74,11 @@ const renderPoints = (points) => {
         icon: regularPinIcon,
       },
     );
-    regularPinMarker
-      .addTo(map);
-    //Ниже функция, если раскомментировать, то все ломается.
-    //.bindPopup(makeCardList());
+
+    const popup = makeCardList(author,offer);
+
+    regularPinMarker.addTo(map);
+    regularPinMarker.bindPopup(popup);
   });
 };
 
