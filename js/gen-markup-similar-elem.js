@@ -24,19 +24,18 @@ const translateCardType = (data) => {
 
 
 //вывести все доступные удобства в объявлении
-const makeCardFeatures = (document, data) => {
-  const featureContainer = document.querySelector('.popup__features');
-  const featureList = featureContainer.querySelectorAll('.popup__feature');
-  const modifiers = data.map((dataItem) => `'.popup__feature--'${dataItem}`);
 
-  featureList.forEach((featureListItem) => {
-    const modifier = featureListItem.classList[1];
-    if (!modifiers.includes(modifier)) {
-      featureListItem.remove();
+const makeCardFeatures = (document, data) => {
+
+  const featureContainer = document.querySelector('.popup__features').querySelectorAll('.popup__feature');
+  featureContainer.forEach((itemFeature) => {
+    const isExist = data ? data.some((feature) => itemFeature.classList.contains(`popup__feature--${feature}`)) : false;
+
+    if (!isExist) {
+      itemFeature.remove();
     }
   });
 };
-
 
 // вывести и сопоставить фото
 const makeCardPhotos = (container, sources) => {
@@ -131,12 +130,7 @@ const makeCardList = ({author, offer}) => {
   } else {
     photoContainer.remove();
   }
-  const features = cardElement.querySelector('.popup__features');
-  if (offer.features) {
-    makeCardFeatures(offer.features, features);
-  } else {
-    features.remove();
-  }
+  makeCardFeatures(cardElement, offer.features);
 
   return cardElement;
 };
