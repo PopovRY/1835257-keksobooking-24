@@ -23,11 +23,11 @@ const translateCardType = (data) => {
 };
 
 
-// вывести все доступные удобства в объявлении
+//вывести все доступные удобства в объявлении
 const makeCardFeatures = (document, data) => {
   const featureContainer = document.querySelector('.popup__features');
   const featureList = featureContainer.querySelectorAll('.popup__feature');
-  const modifiers = data.map((dataItem) => `'.popup__feature--'${ dataItem}`);
+  const modifiers = data.map((dataItem) => `'.popup__feature--'${dataItem}`);
 
   featureList.forEach((featureListItem) => {
     const modifier = featureListItem.classList[1];
@@ -74,7 +74,8 @@ const makeDeclension = (number, Arr) => {
 
 const cardTemplate = document.querySelector('#card').content;
 
-const makeCardList = (author, offer) => {
+
+const makeCardList = ({author, offer}) => {
   const cardElement = cardTemplate.cloneNode(true);
   const title = cardElement.querySelector('.popup__title');
   if (offer.title) {

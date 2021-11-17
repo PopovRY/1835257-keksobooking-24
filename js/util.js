@@ -84,7 +84,9 @@ const createAdvertisement = () => {
   };
 };
 
+const NUMBER_OF_OBJ = 10;
+const advertisements = new Array(NUMBER_OF_OBJ).fill(null).map(createAdvertisement);
 
-export {createAdvertisement};
 
+export {advertisements};
 
