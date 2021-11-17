@@ -1,7 +1,18 @@
-//Синхронизация полей (Количество комнат и Количество мест)
+
 const roomNumberSelect = document.querySelector('#room_number');
+
 const capacitySelect = document.querySelector('#capacity');
 
+const roomsAndCapacityMap = {
+  'bungalo': 0,
+  'flat': 1000,
+  'house': 5000,
+  'palace': 10000,
+};
+
+const adForm = document.querySelector('.ad-form');
+
+//Синхронизация полей (Количество комнат и Количество мест)
 roomNumberSelect.addEventListener('change', () => {
   const currentVal = this.value;
   if (currentVal === 100) {
@@ -36,17 +47,8 @@ timeinSelector.addEventListener('change',() => {
 
 
 //Взаимодействие полей Тип жилья и Цена за ночь. Валидация поля Цена за ночь.
-
-const userForm = document.querySelector('.ad-form');
-const roomsAndCapacityMap = {
-  'bungalo': 0,
-  'flat': 1000,
-  'house': 5000,
-  'palace': 10000,
-};
-
-const apartamentInputElement = userForm.querySelector('select[name="type"]');
-const priceInputElement = userForm.querySelector('input[name="price"]');
+const apartamentInputElement = adForm.querySelector('select[name="type"]');
+const priceInputElement = adForm.querySelector('input[name="price"]');
 
 apartamentInputElement.addEventListener('change', () => {
   const minPrice = roomsAndCapacityMap[apartamentInputElement.value];
@@ -58,10 +60,9 @@ apartamentInputElement.addEventListener('change', () => {
 //неактивное состояние
 
 const getDisactiveState = () => {
-  const form = document.querySelector('.ad-form');
-  form.classList.add('ad-form--disabled');
-  for (let i=0; i < form.children.length; i++) {
-    form.children[i].disabled = true;
+  adForm.classList.add('ad-form--disabled');
+  for (let i=0; i < adForm.children.length; i++) {
+    adForm.children[i].disabled = true;
   }
   const mapFilters = document.querySelector('.map__features');
   mapFilters.classList.add('ad-form--disabled');
@@ -75,10 +76,9 @@ getDisactiveState();
 // активное состояние
 
 const getActiveState = () => {
-  const form = document.querySelector('.ad-form');
-  form.classList.remove('ad-form--disabled');
-  for (let i=0; i < form.children.length; i++) {
-    form.children[i].disabled = false;
+  adForm.classList.remove('ad-form--disabled');
+  for (let i=0; i < adForm.children.length; i++) {
+    adForm.children[i].disabled = false;
   }
   const mapFilters = document.querySelector('.map__features');
   mapFilters.classList.remove('ad-form--disabled');
@@ -88,3 +88,5 @@ const getActiveState = () => {
 };
 
 getActiveState();
+
+export {getActiveState, getDisactiveState, adForm};
