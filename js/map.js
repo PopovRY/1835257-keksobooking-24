@@ -55,7 +55,7 @@ mainPinMarker.addTo(map);
 
 mainPinMarker.on('drag', (evt) => {
   const coords = evt.target.getLatLng();
-  adForm.address.value = `${coords.lat.toFixed(5)}, ${coords.lat.toFixed(5)}`;
+  adForm.address.value = `${coords.lat.toFixed(5)}, ${coords.lng.toFixed(5)}`;
 });
 
 const renderPoints = (array) => {
