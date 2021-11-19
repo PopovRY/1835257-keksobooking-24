@@ -87,6 +87,4 @@ const getActiveState = () => {
   }
 };
 
-getActiveState();
-
 export {getActiveState, getDisactiveState, adForm};

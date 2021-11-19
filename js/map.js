@@ -1,7 +1,5 @@
 import {getActiveState, adForm} from './form-valid.js';
 import {makeCardList} from './gen-markup-similar-elem.js';
-import {advertisements} from './util.js';
-
 
 const INITIAL_COORDS = {
   lat: 35.652832,
@@ -80,5 +78,5 @@ const renderPoints = (array) => {
   });
 };
 
-renderPoints(advertisements);
+export  {renderPoints};
 
