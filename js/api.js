@@ -1,3 +1,4 @@
+import {showAlert} from './util.js';
 
 const getData = (onSuccess, onError) => {
   fetch('https://24.javascript.pages.academy/keksobooking/data')
@@ -15,8 +16,10 @@ const getData = (onSuccess, onError) => {
     });
 };
 
+
 const sendData = (onSuccess, onError, body) => {
-  fetch('https://24.javascript.pages.academy/keksobooking',
+  fetch(
+    'https://24.javascript.pages.academy/keksobooking',
     {
       method: 'POST',
       body,
@@ -25,12 +28,14 @@ const sendData = (onSuccess, onError, body) => {
     .then((responce) => {
       if (responce.ok) {
         return onSuccess();
+      } else {
+        showAlert('Не удалось отправить форму. Попробуйте ещё раз');
       }
-      throw new Error();
     })
     .catch(() => {
-      onError();
+      showAlert('Не удалось отправить форму. Попробуйте ещё раз');
     });
 };
 
-export {getData, sendData};
+
+export {getData, sendData };

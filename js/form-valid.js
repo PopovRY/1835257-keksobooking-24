@@ -1,3 +1,5 @@
+import {sendData} from './api.js';
+import {showAlert} from './util.js';
 
 const roomNumberSelect = document.querySelector('#room_number');
 
@@ -11,8 +13,10 @@ const roomsAndCapacityMap = {
 };
 
 const adForm = document.querySelector('.ad-form');
+const mapFilters = document.querySelector('.map__features');
 
 //Синхронизация полей (Количество комнат и Количество мест)
+
 roomNumberSelect.addEventListener('change', () => {
   const currentVal = this.value;
   if (currentVal === 100) {
@@ -56,7 +60,6 @@ apartamentInputElement.addEventListener('change', () => {
   priceInputElement.placeholder = minPrice;
 });
 
-
 //неактивное состояние
 
 const getDisactiveState = () => {
@@ -64,7 +67,6 @@ const getDisactiveState = () => {
   for (let i=0; i < adForm.children.length; i++) {
     adForm.children[i].disabled = true;
   }
-  const mapFilters = document.querySelector('.map__features');
   mapFilters.classList.add('ad-form--disabled');
   for (let i=0; i < mapFilters.children.length; i++) {
     mapFilters.children[i].disabled = true;
@@ -80,11 +82,24 @@ const getActiveState = () => {
   for (let i=0; i < adForm.children.length; i++) {
     adForm.children[i].disabled = false;
   }
-  const mapFilters = document.querySelector('.map__features');
   mapFilters.classList.remove('ad-form--disabled');
   for (let i=0; i < mapFilters.children.length; i++) {
     mapFilters.children[i].disabled = false;
   }
 };
 
-export {getActiveState, getDisactiveState, adForm};
+
+const clickOnSubmitForm = (onSuccess) => {
+  adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+
+    sendData(
+      () => onSuccess(),
+      () => showAlert('Не удалось отправить форму. Попробуйте ещё раз'),
+      new FormData(evt.target),
+    );
+  });
+};
+
+
+export {getActiveState, getDisactiveState, adForm, clickOnSubmitForm};

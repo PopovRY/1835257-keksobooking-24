@@ -1,5 +1,7 @@
 import {getActiveState, adForm} from './form-valid.js';
-import {makeCardList} from './gen-markup-similar-elem.js';
+import {makeCardList} from './card.js';
+
+const MAP_ZOOM = 13;
 
 const INITIAL_COORDS = {
   lat: 35.652832,
@@ -19,7 +21,7 @@ const map = L.map('map-canvas')
   .setView({
     lat: INITIAL_COORDS.lat,
     lng: INITIAL_COORDS.lng,
-  },13);
+  },MAP_ZOOM);
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -50,6 +52,7 @@ const mainPinMarker = L.marker(
 
 mainPinMarker.addTo(map);
 
+const markerGroup = L.layerGroup().addTo(map);
 
 mainPinMarker.on('drag', (evt) => {
   const coords = evt.target.getLatLng();
@@ -73,10 +76,22 @@ const renderPoints = (array) => {
         icon: regularPinIcon,
       },
     );
-    regularPinMarker.addTo(map)
+    regularPinMarker.addTo(markerGroup)
       .bindPopup(makeCardList({author, offer}));
   });
 };
 
-export  {renderPoints};
+const resetPoints = () => {
+  mainPinMarker.setLatLng({
+    lat: MAIN_MARKER_COORDS.lat,
+    lng: MAIN_MARKER_COORDS.lat,
+  });
+  map.setView({
+    lat: INITIAL_COORDS.lat,
+    lng: INITIAL_COORDS.lat,
+  }, MAP_ZOOM);
+  map.closePopup();
+  markerGroup.clearLayers();
+};
+export  {renderPoints, resetPoints, INITIAL_COORDS};
 
